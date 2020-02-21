@@ -1,8 +1,9 @@
 package org.kavus.jobzapp.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.Period;
+
 @Entity
 public class Experience extends Asset{
     @ManyToOne
@@ -14,13 +15,38 @@ public class Experience extends Asset{
     @ManyToOne
     @JoinColumn(name="TYPE_ID")
     protected ExperienceType experienceType;
+    @Column(name="START_DATE")
+    protected LocalDate startDate;
+    @Column(name="END_DATE")
+    protected LocalDate endDate;
+    @Transient
     protected float duration;
 
-    public Experience(Person person, Organization<Definition> organization, ExperienceType experienceType, float duration) {
+    public Experience(Person person, Organization organization, ExperienceType experienceType,LocalDate startDate,LocalDate endDate) {
         this.person = person;
         this.organization = organization;
         this.experienceType = experienceType;
-        this.duration = duration;
+        this.startDate=startDate;
+        this.endDate=endDate;
+        updateDuration();
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+        updateDuration();
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+        updateDuration();
     }
 
     public Person getPerson() {
@@ -57,5 +83,8 @@ public class Experience extends Asset{
 
     public Experience() {
         super();
+    }
+    protected void updateDuration(){
+        this.duration=(startDate==null||endDate==null)? null:Period.between(startDate,endDate).getMonths()/12;
     }
 }
