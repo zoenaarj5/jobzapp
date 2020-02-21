@@ -2,11 +2,11 @@ package org.kavus.jobzapp.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 public class Company extends Organization<LDefinition> {
-    public Company(List<Definition> definitionList, LocalDate foundingDate, LocalDateTime registrationDate) {
-        super(definitionList, foundingDate, registrationDate);
+    public Company(Set<Definition> definitionSet, LocalDate foundingDate, LocalDateTime registrationDate) {
+        super(definitionSet, foundingDate, registrationDate);
     }
 
     public Company() {

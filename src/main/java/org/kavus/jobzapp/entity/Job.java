@@ -1,37 +1,35 @@
 package org.kavus.jobzapp.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Set;
+import java.util.Set;
 
 @Entity
 public class Job extends Definable<LDefinition> {
     @ManyToOne
     @JoinColumn(name="EMPLOYER_ID")
     protected Organization employer;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name="JOB_ID")
-    protected List<AssetWish> assetWishList;
+    protected Set<AssetWish> assetWishSet;
 
-    public List<AssetWish> getAssetWishList() {
-        return assetWishList;
+    public Set<AssetWish> getAssetWishSet() {
+        return assetWishSet;
     }
 
-    public Job(List<Definition> definitionList, Organization employer, List<AssetWish> assetWishList) {
-        super(definitionList);
+    public Job(Set<Definition> definitionSet, Organization employer, Set<AssetWish> assetWishSet) {
+        super(definitionSet);
         this.employer = employer;
-        this.assetWishList = assetWishList;
+        this.assetWishSet = assetWishSet;
     }
 
-    public Job(Organization employer, List<AssetWish> assetWishList) {
+    public Job(Organization employer, Set<AssetWish> assetWishSet) {
         this.employer = employer;
-        this.assetWishList = assetWishList;
+        this.assetWishSet = assetWishSet;
     }
 
-    public void setAssetWishList(List<AssetWish> assetWishList) {
-        this.assetWishList = assetWishList;
+    public void setAssetWishSet(Set<AssetWish> assetWishSet) {
+        this.assetWishSet = assetWishSet;
     }
 
     public Organization<Definition> getEmployer() {

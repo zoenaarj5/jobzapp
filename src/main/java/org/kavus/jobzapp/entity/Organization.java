@@ -3,7 +3,7 @@ package org.kavus.jobzapp.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Organization<L extends Definition> extends Definable {
@@ -19,8 +19,8 @@ public abstract class Organization<L extends Definition> extends Definable {
         super();
     }
 
-    public Organization(List<Definition> definitionList, LocalDate foundingDate, LocalDateTime registrationDate) {
-        super(definitionList);
+    public Organization(Set<Definition> definitionSet, LocalDate foundingDate, LocalDateTime registrationDate) {
+        super(definitionSet);
         this.foundingDate = foundingDate;
         this.registrationDate = registrationDate;
     }

@@ -25,7 +25,9 @@ public abstract class Contact {
     public void setTypeCode(ContactTypeCode typeCode) {
         this.typeCode = typeCode;
     }
-
+    public Contact(){
+        super();
+    }
     @Enumerated(EnumType.STRING)
     protected ContactTypeCode typeCode;
 }

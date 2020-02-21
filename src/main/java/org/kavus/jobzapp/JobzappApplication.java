@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -16,12 +17,12 @@ public class JobzappApplication {
 	protected static final Person person1=new Person(new LoginData("joedalton","joedalton@western.com","JoeDalton1"),new PersonalData("Joe","Dalton",LocalDate.of(1860,12,1), Sex.M));
 	protected static final Person person2=new Person(new LoginData("calamityjane","calamityjane@western.com","CalamityJane1"),new PersonalData("Martha Jane","Cannary",LocalDate.of(1852,5,1), Sex.F));
 	protected static final Person person3=new Person(new LoginData("luckyluke","luckyluke@western.com","LuckyLuke1"),new PersonalData("Lucky","Luke",LocalDate.of(1857,4,22), Sex.M));
-	protected static final LDefinition company1DefinitionEN=new LDefinition(null,LanguageCode.EN,"Alter Solutions SA","","");
-	protected static final LDefinition company1DefinitionFR=new LDefinition(null,LanguageCode.FR,"Alter Solutions SA","","");
-	protected static final LDefinition company2DefinitionEN=new LDefinition(null,LanguageCode.EN,"","","");
-	protected static final LDefinition company2DefinitionFR=new LDefinition(null,LanguageCode.FR,"","","");
-	protected static final Company company1=new Company(Arrays.asList(new Definition[]{company1DefinitionEN,company1DefinitionFR}),LocalDate.of(2006,2,1), LocalDateTime.of(2019,12,1,11,41));
-	protected static final Company company2=new Company(Arrays.asList(new Definition[]{company2DefinitionEN,company2DefinitionFR}),LocalDate.of(2006,2,1), LocalDateTime.of(2019,12,1,11,41));
+	protected static final Company company1=new Company(LocalDate.of(2006,2,1), LocalDateTime.of(2019,12,1,11,41));
+	protected static final Company company2=new Company(LocalDate.of(2006,2,1), LocalDateTime.of(2019,12,1,11,41));
+	protected static final LDefinition company1DefinitionEN=new LDefinition(company1,LanguageCode.EN,"Alter Solutions SA","A perfect company","This is what you need as a consulance company.");
+	protected static final LDefinition company1DefinitionFR=new LDefinition(company1,LanguageCode.FR,"Alter Solutions SA","Une entreprise parfaite.","Exactement ce que vous cherchez comme société de consultance.");
+	protected static final LDefinition company2DefinitionEN=new LDefinition(company2,LanguageCode.EN,"IBM","A well-known IT giant","This is a company with a well-documented history of successes");
+	protected static final LDefinition company2DefinitionFR=new LDefinition(company2,LanguageCode.FR,"IBM","Un célèbre géant de l'informatique.","Ceci est une société avec une histoire á succès bien documentée.");
 	public static void main(String[] args) {
 		SpringApplication.run(JobzappApplication.class, args);
 	}

@@ -1,7 +1,8 @@
 package org.kavus.jobzapp.entity;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
+
 @Entity
 public class ContactLister {
     @Id
@@ -11,20 +12,19 @@ public class ContactLister {
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
 
-    public List<Contact> getContactList() {
-        return contactList;
+    public Set<Contact> getContactSet() {
+        return contactSet;
     }
 
-    public void setContactList(List<Contact> contactList) {
-        this.contactList = contactList;
+    public void setContactSet(Set<Contact> contactSet) {
+        this.contactSet = contactSet;
     }
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "CONTACT_LISTER_ID")
-    private List<Contact> contactList;
+    private Set<Contact> contactSet;
 }

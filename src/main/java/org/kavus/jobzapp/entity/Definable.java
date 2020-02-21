@@ -1,8 +1,8 @@
 package org.kavus.jobzapp.entity;
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
+
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Definable<T extends Definition> {
@@ -11,8 +11,8 @@ public abstract class Definable<T extends Definition> {
     protected long id;
 
     @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(name="DEFINITION_LIST")
-    protected List<Definition> definitionList;
+    @JoinColumn(name="DEFINABLE_ID")
+    protected Set<Definition> definitionSet;
     @Transient
     protected T currentDefinition;
 
@@ -24,12 +24,12 @@ public abstract class Definable<T extends Definition> {
         this.id = id;
     }
 
-    public List<Definition> getDefinitionList() {
-        return definitionList;
+    public Set<Definition> getDefinitionSet() {
+        return definitionSet;
     }
 
-    public void setDefinitionList(List<Definition> definitionList) {
-        this.definitionList = definitionList;
+    public void setDefinitionSet(Set<Definition> definitionSet) {
+        this.definitionSet = definitionSet;
         translate();
     }
 
@@ -37,8 +37,8 @@ public abstract class Definable<T extends Definition> {
         return currentDefinition;
     }
 
-    public Definable(List<Definition> definitionList) {
-        setDefinitionList(definitionList);
+    public Definable(Set<Definition> definitionSet) {
+        setDefinitionSet(definitionSet);
     }
 
     public void setCurrentDefinition(T currentDefinition) {
@@ -50,11 +50,11 @@ public abstract class Definable<T extends Definition> {
     }
 
     public void translate(){
-        if(definitionList==null){
+        if(definitionSet ==null){
             return;
         }
-        final List<Definition> defList=definitionList;
-        List<Object> oList= Arrays.asList(defList.stream().filter((def)->def.getLanguageCode()==Definition.getCurrentLanguageCode()).toArray());
-        this.currentDefinition=(defList.size()>0)?(T)oList.get(0):null;
+        final Set<Definition> defSet= definitionSet;
+        Object[] oTab=defSet.stream().filter((def)->def.getLanguageCode()==Definition.getCurrentLanguageCode()).toArray();
+        this.currentDefinition=(oTab.length>0)?(T)oTab[0]:null;
     }
 }

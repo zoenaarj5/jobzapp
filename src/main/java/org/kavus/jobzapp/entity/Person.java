@@ -1,5 +1,8 @@
 package org.kavus.jobzapp.entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -23,10 +26,10 @@ public class Person {
         @AttributeOverride(name="sex",column = @Column(name="SEX"))
     })
     protected PersonalData personalData;
-    @ManyToMany
-    @JoinTable(name="PERSON_HAS_ASSET")
-    protected List<Asset> assetList;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="ASSET_LISTER_ID")
+    protected AssetLister assetLister;
+    @ManyToOne
     @JoinColumn(name="CONTACT_LISTER_ID")
     protected ContactLister contactLister;
 
